@@ -105,10 +105,14 @@ def smtp(save=False):
 
 def forget():
     if os.path.exists(CONFIG_PATH):
-        os.remove(CONFIG_PATH)
-        print('done')
+        confirm = input(f"Are you sure you want to delete config at {os.path.expanduser('~')}? (y/N): ").lower().strip()
+        if confirm in ('y', 'yes', 'true'):
+            os.remove(CONFIG_PATH)
+            print('Configuration removed.')
+        else:
+            print('Abort.')
     else:
-        print(f"token '{CONFIG_PATH}' not exists")
+        print(f"No config found at '{os.path.expanduser('~')}'.")
 
 
 
