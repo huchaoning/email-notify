@@ -1,0 +1,19 @@
+Metadata-Version: 2.4
+Name: email_notify
+Version: 1.0.0
+Summary: Email notifications when a code block or function finishes or ends unexpectedly
+Author: Chao-Ning Hu
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Intended Audience :: Developers
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: cryptography
+Dynamic: author
+Dynamic: classifier
+Dynamic: description-content-type
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
