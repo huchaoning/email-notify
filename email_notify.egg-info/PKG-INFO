@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: email_notify
-Version: 1.0.0
+Version: 1.0.1
 Summary: Email notifications when a code block or function finishes or ends unexpectedly
 Author: Chao-Ning Hu
 Classifier: Programming Language :: Python :: 3

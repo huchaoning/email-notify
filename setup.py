@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='email_notify',
-    version='1.0.0',
+    version='1.0.1',
     description='Email notifications when a code block or function finishes or ends unexpectedly',
     long_description='',
     long_description_content_type='text/markdown',
