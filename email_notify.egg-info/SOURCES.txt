@@ -1,0 +1,10 @@
+README.md
+setup.py
+email_notify/__init__.py
+email_notify/core.py
+email_notify/crypt.py
+email_notify.egg-info/PKG-INFO
+email_notify.egg-info/SOURCES.txt
+email_notify.egg-info/dependency_links.txt
+email_notify.egg-info/requires.txt
+email_notify.egg-info/top_level.txt
