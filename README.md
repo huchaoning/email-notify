@@ -1,4 +1,4 @@
-# email_notify
+# Email Notify
 
 Email notifications when a code block or function finishes or ends unexpectedly.
 
