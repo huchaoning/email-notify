@@ -36,8 +36,8 @@ import email_notify
 recipient = 'user@example.com'
 
 with email_notify.context(recipient, task_name='Task'):
-    print('Hello, task started')
-    # your code here
+    print('Running some tasks...')
+    # some tasks
 ```
 
 ### Decorator
@@ -49,8 +49,8 @@ recipient = 'user@example.com'
 
 @email_notify.decorator(recipient)
 def my_task():
-    print('Hello, task started')
-    # your code here
+    print('Running some tasks...')
+    # some tasks
 
 my_task()
 ```
@@ -63,7 +63,8 @@ import email_notify
 recipient = 'user@example.com'
 
 try:
-    print('Running some task...')
+    print('Running some tasks...')
+    # some tasks
 except Exception as e:
     subject = 'Task Failed'
     message = f'The task failed with error:\n{e}'
