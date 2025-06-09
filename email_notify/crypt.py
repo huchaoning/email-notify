@@ -5,32 +5,72 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.fernet import Fernet
 
+import hashlib
 import subprocess
 import platform
 
-def cpuid():
+
+def _fingerprint_windows():
+    try:
+        disk_sn = subprocess.check_output('wmic diskdrive get serialnumber', shell=True).decode().strip().split('\n')[1]
+        machine_id = subprocess.check_output('reg query "HKLM\\SOFTWARE\\Microsoft\\Cryptography" /v MachineGuid', shell=True).decode().strip().split('    ')[-1]
+        
+        hardware_info = f'{machine_id}|{disk_sn}'
+        return hashlib.sha256(hardware_info.encode()).hexdigest()
+    except Exception as e:
+        print(f'Failed to get hardware info (Windows): {e}')
+        return None
+
+
+def _fingerprint_macos():
+    try:
+        hw_uuid = subprocess.check_output("system_profiler SPHardwareDataType | grep 'Hardware UUID'", shell=True).decode().strip().split(':')[1].strip()
+        disk_uuid = subprocess.check_output("system_profiler SPStorageDataType | grep 'Volume UUID' | head -n 1", shell=True).decode().strip().split(':')[1].strip()
+
+        hardware_info = f'{hw_uuid}|{disk_uuid}'
+        return hashlib.sha256(hardware_info.encode()).hexdigest()
+    except Exception as e:
+        print(f'Failed to get hardware info (macOS): {e}')
+        return None
+
+
+def _fingerprint_linux():
+    try:
+        machine_id = subprocess.check_output('cat /etc/machine-id', shell=True).decode().strip()
+        disk_uuid = subprocess.check_output('lsblk -o NAME,UUID | grep \'sda\' | awk \'{print $2}\'', shell=True).decode().strip()
+
+        hardware_info = f'{machine_id}|{disk_uuid}'
+        return hashlib.sha256(hardware_info.encode()).hexdigest()
+    except Exception as e:
+        print(f'Failed to get hardware info (Linux): {e}')
+        return None
+
+
+def device_fingerprint():
     system = platform.system().lower()
-    if system == "windows":
-        return _cpuid_windows()
-    elif system == "darwin":
-        return _cpuid_macos()
-    return None
 
-def _cpuid_windows():
-    try:
-        cpu_id = subprocess.check_output("wmic cpu get processorid", shell=True).decode().strip().split("\n")[1]
-        return cpu_id
-    except Exception as e:
-        print(f"Failed to get CPU ID (Windows): {e}")
+    if system == 'windows':
+        return _fingerprint_windows()
+    elif system == 'darwin':
+        return _fingerprint_macos()
+    elif system == 'linux':
+        return _fingerprint_linux()
+    else:
         return None
 
-def _cpuid_macos():
-    try:
-        serial_number = subprocess.check_output("system_profiler SPHardwareDataType | grep 'Serial Number (system)'", shell=True).decode().strip().split(":")[1].strip()
-        return serial_number
-    except Exception as e:
-        print(f"Failed to get hardware serial number (macOS): {e}")
+
+def device_fingerprint():
+    system = platform.system().lower()
+
+    if system == 'windows':
+        return _fingerprint_windows()
+    elif system == 'darwin':
+        return _fingerprint_macos()
+    elif system == 'linux':
+        return _fingerprint_linux()
+    else:
         return None
+
 
 # Internal function to derive the encryption key from the password
 def _derive_key(password: str, salt: bytes) -> bytes:

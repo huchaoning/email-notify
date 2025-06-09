@@ -5,7 +5,7 @@ with open('README.md', encoding='utf-8') as f:
 
 setup(
     name='email_notify',
-    version='1.0.2',
+    version='1.0.5',
     description='Email notifications when a code block or function finishes or ends unexpectedly',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -14,8 +14,7 @@ setup(
     python_requires='>=3.7',
     classifiers=[
         'Programming Language :: Python :: 3',
-        'Operating System :: MacOS',
-        'Operating System :: Microsoft :: Windows',
+        'Operating System :: OS Independent',
         'License :: OSI Approved :: MIT License',
         'Intended Audience :: Developers',
     ],

@@ -14,7 +14,7 @@ from datetime import datetime
 from contextlib import contextmanager, redirect_stdout, redirect_stderr
 from functools import wraps
 
-from .crypt import encrypt, decrypt, cpuid
+from .crypt import encrypt, decrypt, device_fingerprint
 
 
 CONFIG_PATH = os.path.expanduser('~/.email_notify.config')
@@ -78,8 +78,8 @@ def _load_config():
 def auth(save=False):
     config = _load_config()
 
-    email_enc = encrypt(input('Email address: ').strip(), cpuid())
-    passwd_enc = encrypt(getpass.getpass('Application password: ').strip(), cpuid())
+    email_enc = encrypt(input('Email address: ').strip(), device_fingerprint())
+    passwd_enc = encrypt(getpass.getpass('Application password: ').strip(), device_fingerprint())
 
     config['email'] = base64.b64encode(email_enc).decode()
     config['password'] = base64.b64encode(passwd_enc).decode()
@@ -130,8 +130,8 @@ def send(subject, message, recipient):
         if key not in config:
             raise ValueError(f"Missing '{key}' in config. Run `email_notify.auth()` or `email_notify.smtp()` to configure.")
 
-    sender = decrypt(base64.b64decode(config['email']), cpuid())
-    password = decrypt(base64.b64decode(config['password']), cpuid())
+    sender = decrypt(base64.b64decode(config['email']), device_fingerprint())
+    password = decrypt(base64.b64decode(config['password']), device_fingerprint())
     smtp_host = config['smtp_host']
     smtp_port = config['smtp_port']
 
