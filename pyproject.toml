@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools", "wheel", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "email_notify"
+description = "Email notifications when a code block or function finishes or ends unexpectedly."
+dynamic = ["version"]
+
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Chao-Ning Hu" }
+]
+
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = ["cryptography"]
+
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["email_notify*"]
+
+
+[tool.setuptools_scm]
+local_scheme = "no-local-version"
