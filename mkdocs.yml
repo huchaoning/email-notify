@@ -1,0 +1,17 @@
+site_name: huchaoning/hcn Documentation
+repo_url: https://github.com/huchaoning/hcn
+copyright: Copyright (c) 2023 <a href="https://github.com/huchaoning">Chao-Ning Hu</a>
+
+
+theme:
+  name: readthedocs
+  language: en
+
+
+plugins:
+  - search
+  - mkdocstrings
+
+
+nav:
+  - Home: "index.md"
