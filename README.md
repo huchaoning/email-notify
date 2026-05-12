@@ -1,5 +1,9 @@
 # Email Notify
 
+[![PyPI version](https://img.shields.io/pypi/v/hcn.svg)](https://pypi.org/project/email-notify/)
+[![Python Version](https://img.shields.io/badge/python-3%2B-blue)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/github/license/huchaoning/hcn?color=blue)](https://github.com/huchaoning/email-notify/blob/main/LICENSE)
+
 Email notifications when a code block or function finishes or ends unexpectedly.
 
 Use SMTP service.
